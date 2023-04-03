@@ -7,7 +7,7 @@ import { FcExport } from "react-icons/fc";
 
 export default function About() {
 
-    const{uname,auth,navigate,setDrop,logout,uid,uemail,aboutuser,loading} = useContext(Notecontext)
+    const{uname,auth,navigate,setDrop,logout,uid,uemail,loading} = useContext(Notecontext)
 
 
     useEffect(()=>{

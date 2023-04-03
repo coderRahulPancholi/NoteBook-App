@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 
 
 export default function Navbar() {
-    const {uname,auth,drop,setDrop,navigate,logout}= useContext(Notecontext)
+    const {auth,drop,setDrop,navigate,logout}= useContext(Notecontext)
     
 
    
