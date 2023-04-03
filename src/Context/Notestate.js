@@ -19,7 +19,7 @@ const Notestate = (props) => {
 
   const getnotes = async () => {
     // setLoading(true);
-    const notes = await fetch("http://localhost:8000/user/getnotes", {
+    const notes = await fetch("https://notebookapi.onrender.com/user/getnotes", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -80,7 +80,7 @@ const Notestate = (props) => {
   const verify = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const suser = await fetch("http://localhost:8000/login", {
+    const suser = await fetch("https://notebookapi.onrender.com/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
