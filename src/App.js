@@ -7,7 +7,7 @@ import Navbar from "./Commponents/Navbar";
 // import Home from "./Pages/Home";
 import Notestate from "./Context/Notestate";
 import { Globalcss } from "./Globalcss";
-// import Login from "./Pages/Login";
+import Loading from "./Commponents/Loading";
 import Ihome from "./Pages/Ihome";
 
 function App() {
@@ -22,6 +22,7 @@ function App() {
 
       
       <Navbar/>
+      <Loading/>
  
 
     <Ihome/>

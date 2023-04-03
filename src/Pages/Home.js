@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import { useContext } from "react";
-import Loading from "../Commponents/Loading";
+// import Loading from "../Commponents/Loading";
 import Notecontext from "../Context/Notecontext";
 // import Navbar from "../Commponents/Navbar";
 import styled from "styled-components";
 import Addnote from "../Commponents/Addnote";
+import { useEffect } from "react";
 
 export default function Home() {
   const [notedlt, setNotedlt] = useState(false);
 
   const {
+    auth,
     notes,
     addnote,
     title,
@@ -21,19 +23,27 @@ export default function Home() {
     add,
     setAdd,
     user,
+    setDrop,loading
   } = useContext(Notecontext);
 
   const dltnote = async (id) => {
-    const notedlt = await fetch(`https://notebookapi.onrender.com/user/removenote/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        id: user.token,
-      },
-    });
+    if(!auth){
+      alert("Access Denied")
+      window.location.reload(true)
+    }
+    const notedlt = await fetch(
+      `https://notebookapi.onrender.com/user/removenote/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          id: user.token,
+        },
+      }
+    );
     const ajson = await notedlt.json();
     await getnotes();
-    setAdd(false)
+    setAdd(false);
     setNotedlt(true);
 
     setTimeout(() => {
@@ -43,11 +53,26 @@ export default function Home() {
     console.log(ajson);
   };
 
+  // const localData = localStorage.getItem("authuser");
+
+  useEffect(() => {
+    setDrop(false)
+  if(auth){
+    getnotes();
+  }
+  
+  
+      
+    
+    console.log('i fire once');
+    // eslint-disable-next-line
+  }, [1]);
+
   return (
-    <Wrapper>
+    <Wrapper >
+
       <div>
-       
-        <Loading />
+        {!loading? <> 
         <div className="alert-main">
           {noteadd ? (
             <div className="alert alert-success" role="alert">
@@ -61,6 +86,7 @@ export default function Home() {
             <></>
           )}
         </div>
+
 
         <div className="adnote" style={{ display: add ? "flex" : "none" }}>
           <div className="adform">
@@ -84,17 +110,18 @@ export default function Home() {
             </button>
           </div>
         </div>
+        {/* <button onClick={()=>getnotes()}>getnotes</button> */}
 
         <div className="cscard" style={{ opacity: add ? "20%" : "100%" }}>
-          {notes.length !== 0 ? (
+          {!loading && notes.length !== 0 ? (
             notes.map((e) => {
               return (
                 <div className="card  " style={{ width: "18rem" }} key={e._id}>
                   <div className="card-body">
                     <h5 className="card-title">{e.title}</h5>
                     {/* <h6 className="card-subtitle mb-2 text-muted">Card subtitle</h6> */}
-                    <p className="card-text">{Date(e.date).slice(0, 15)}</p>
-                    <p className="card-text">{e.discription}</p>
+                    <p className="card-text">{Date.parse(e.date, "yyyy-MM-dd HH:mm:ss z")}</p>
+                    <p className="card-text">  {e.discription}</p>
                     <button
                       type="button"
                       className="btn btn-danger "
@@ -106,12 +133,12 @@ export default function Home() {
                 </div>
               );
             })
-          ) : (
-            <div className="nonotes">Please add notes </div>
-          )}
-        </div>
+          ) : 
+            <div className="nonotes">Add notes </div>
+          }
+        </div></>:<></>}
       </div>
-      <Addnote/>
+      <Addnote />
     </Wrapper>
   );
 }

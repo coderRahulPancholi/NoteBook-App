@@ -1,30 +1,25 @@
-import React, { useState } from 'react'
+import React  from 'react'
 import { useContext } from 'react'
 import styled from 'styled-components'
 import Notecontext from '../Context/Notecontext'
 import { FcExport } from "react-icons/fc";
 import { FiMenu } from "react-icons/fi";
+import { Link } from 'react-router-dom';
 
 
 
 export default function Navbar() {
-    const {uname,auth}= useContext(Notecontext)
-    const [drop,setDrop] = useState(false)
+    const {uname,auth,drop,setDrop,navigate,logout}= useContext(Notecontext)
+    
 
-    const logout = async ()=>{
-        await localStorage.clear()
-        alert("Logout")
-        window.location.reload(true);
-    // navigate("/login")
-         
-     }
+   
    
   
   return (
   <MainContainer >
     <div className="chid df ac jsb ">
       <div className="item df ac jc gap15 h100  ">
-        <h2 > NoteBook</h2>
+        <h2 onClick={()=>navigate("/")} style={{cursor:"pointer"}} > NoteBook</h2>
        
       </div>
 
@@ -34,8 +29,8 @@ export default function Navbar() {
       <div className="item df ac jc gap15 ">
       
         
-        <div className='userlogo df ac jc' >
-          <span >{uname.slice(0,1)} </span>
+        <div className='userlogo df ac jc' onClick={()=>navigate("/about")} >
+          {/* <span >{uname.slice(0,1)} </span> */}
           
         
         </div>
@@ -46,14 +41,18 @@ export default function Navbar() {
 
 
           
-        <div className={`${drop?" droped ":" "} dropmenu dfc ac jss`}>
-        <p>Hello</p>
-  <h4> {uname.toUpperCase().slice(0,5)}</h4>
-        <button onClick={logout}><FcExport size={25}/>Logout</button>
+        <div className={`${drop?" droped ":" "} dropmenu dfc ac jss gap15`} >
+        
+         {/* <h4> Hello {uname.toUpperCase().slice(0,5)}</h4> */}
+         <li><Link to="/" className={window.location.pathname ==="/"?"active":""}>Home</Link></li>
+         <li><Link to="/about" className={window.location.pathname ==="/about"?"active":""}>About</Link></li>
+         
+         <button onClick={logout}><FcExport size={25}/>Logout</button>
+
         </div>
         
         
-      </div>:null}
+      </div>:<>Login</>}
     </div>
 
 
@@ -68,6 +67,7 @@ position: sticky;
 z-index: 9;
 background-color: white;
 top: 0;
+border-bottom: 0.5px solid black;
 
 .chid{
   padding: 10px;
@@ -83,6 +83,7 @@ button{
   height: 50px;
   border-radius: 100%;
   background-color: aliceblue;
+  cursor: pointer;
   
 
   span{
@@ -93,10 +94,10 @@ button{
 .dropmenu{
   /* display: none; */
   display: flex;
-  top: 70px;
+  top: 75px;
   right: 0%;
   width: 50%;
-  height: 100vh;
+  height: calc(100vh - 75px);
   max-width: 300px;
   position: fixed;
   box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
@@ -117,5 +118,10 @@ padding: 10px;
 
 }
 
+.active{
+  /* color: red; */
+  padding: 5px;
+  border-bottom: 0.5px solid black;
+}
 
 `

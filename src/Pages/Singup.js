@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import Notecontext from "../Context/Notecontext";
 
+
 export default function Login() {
   const {
     email,
@@ -11,6 +12,7 @@ export default function Login() {
     singup,
     name,
     setName,
+    loading,
     
     verify,
     
@@ -65,7 +67,7 @@ export default function Login() {
               
               
               
-              <button type="submit"  className="btn btn-primary">Login</button>
+              <button type="submit"  className="btn btn-primary">{loading?"Wait..": "Login"}</button>
               <p>Not a user <span style={{textDecoration:"underline",color:"blue",cursor:"pointer"}} onClick={()=>setValue("singup")}>Register</span></p>
             </form>
           </div>
@@ -88,7 +90,7 @@ export default function Login() {
               </div>
               
            
-              <button type="submit"  className="btn btn-primary">Sign Up</button>
+              <button type="submit"  className="btn btn-primary">{loading?"Wait....": "Sign Up"}</button>
               <p>Already a user <span style={{textDecoration:"underline",color:"blue",cursor:"pointer"}} onClick={()=>setValue("login")}>Login</span></p>
             </form>
           
@@ -115,7 +117,8 @@ const Wrapper = styled.div`
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     
     height: 70%;
-   min-height: 500px;
+   /* min-height: 300px; */
+   max-height: 700px;
     display: flex;
     flex-direction: column;
     align-items: center;
