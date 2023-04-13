@@ -7,6 +7,7 @@ export const Globalcss = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+ 
     
     
 }
@@ -14,7 +15,8 @@ body{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    /* overflow-x:hidden ; */
+    overflow-x:hidden ;
+   
 }
 
 /* html{
@@ -26,6 +28,7 @@ body{
      display: flex;
     align-items: center;
     justify-content: center;
+    
 }
 .df{
     display: flex;
@@ -106,4 +109,20 @@ li{
         color: black;
     }
 }
+
+
+.globalbtn{
+    padding: 7px;
+    border: none;
+   
+   
+    padding: 7px;
+  background-color: #262ea1;
+  border-radius: 5px;
+  color: white;
+  &:hover{
+    background-color: #3940a8;
+  }
+}
+
 `

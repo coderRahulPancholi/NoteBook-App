@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import Notecontext from "./Notecontext";
 
@@ -12,55 +12,31 @@ const Notestate = (props) => {
   const [add, setAdd] = useState(false);
   const [loading, setLoading] = useState(false);
   const [drop, setDrop] = useState(false);
+  const [edit, setEdit] = useState(false);
+  const [full, setFull] = useState(false);
   const [password, setPassword] = useState("");
+ 
   const [notes, setNotes] = useState([]);
 
   const navigate = useNavigate();
 
-  const getnotes = async () => {
-    // setLoading(true);
-    const notes = await fetch("https://notebookapi.onrender.com/user/getnotes", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-         
-      },
-      withCredentials:true
-    });
-
-    const unotes = await notes.json();
-
-  if(notes){
-    setNotes( unotes);
-    setLoading(false);
-  }else{
-    setLoading(true);
-  }
-
- 
-
-   
-   
-    console.log(unotes);
-  };
-
   //add notes api
-  const addnote = async () => {
+  const addnote = async (e) => {
+    e.preventDefault()
     setAdd(false);
+    // setLoading(true)
     if (auth) {
-      const notes = await fetch(
-        "https://notebookapi.onrender.com/user/addnote",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            id: user.token,
-          },
-          body: JSON.stringify({ title, discription }),
-        }
-      );
+      const notes = await fetch("https://notebookapi.onrender.com/user/addnote", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          id: user.token,
+        },
+        body: JSON.stringify({ title, discription }),
+      });
 
       const unotes = await notes.json();
+
       // setAdd(false)
       console.log(unotes);
       setNoteadd(true);
@@ -70,7 +46,6 @@ const Notestate = (props) => {
       setTimeout(() => {
         setNoteadd(false);
       }, 5000);
-      
     } else {
       alert("Please login");
       window.location.reload(true);
@@ -84,25 +59,27 @@ const Notestate = (props) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        
       },
-      withCredentials:true,
+      // withCredentials: true,
+
       body: JSON.stringify({ email, password }),
     });
-   
+
     const ajson = await suser.json();
-   
+    console.log(suser);
+
     setLoading(false);
     // console.log(ajson);
     if (ajson.success) {
-      // localStorage.setItem("authuser", JSON.stringify(ajson));
-       setAuth(true);
+      localStorage.setItem("authuser", JSON.stringify(ajson));
+
+      setAuth(true);
       //  const allCookies = document.cookie;
       //  console.log(allCookies)
-      // navigate("/home");
+      // navigate("/");
       // alert("Login succesfully")
 
-      //  window.location.reload(true);
+      window.location.reload(true);
 
       // getnotes()
 
@@ -113,38 +90,6 @@ const Notestate = (props) => {
       navigate("/");
     }
   };
-
-  const getLocalData = () => {
-    const localData = localStorage.getItem("authuser");
-    if (localData) {
-      return JSON.parse(localStorage.getItem("authuser"));
-    } else {
-      return [];
-    }
-  };
-
-  const user = getLocalData();
-  const [auth, setAuth] = useState(user.success);
-
-  const aboutuser = async () => {
-    setLoading(true);
-    const auser = await fetch("http://localhost:8000/user/details", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        id: user.token,
-      },
-    });
-    const uabout = await auser.json();
-    setLoading(false);
-    setUemail(uabout.email);
-    setUid(uabout._id);
-    setUname(uabout.name);
-  };
-
-  const [uname, setUname] = useState(user.uname);
-  const [uemail, setUemail] = useState(user.uemail);
-  const [uid, setUid] = useState(user.uid);
 
   const singup = async (e) => {
     e.preventDefault();
@@ -162,28 +107,105 @@ const Notestate = (props) => {
     console.log(ajson);
     if (ajson.success) {
       alert("User Resgitreed succesfully");
-      localStorage.setItem("authuser", JSON.stringify(ajson));
-      setAuth(true);
+     verify(e)
 
-      window.location.reload(true);
+      // window.location.reload(true);
 
-      setEmail("");
-      setName("");
-      setPassword("");
+      // setEmail("");
+      // setName("");
+      // setPassword("");
     } else {
       alert("Please use other detials");
     }
   };
+
+  const getLocalData = () => {
+    const localData = localStorage.getItem("authuser");
+    if (localData) {
+      return JSON.parse(localStorage.getItem("authuser"));
+    } else {
+      return [];
+    }
+  };
+
+  const user = getLocalData();
+  const [auth, setAuth] = useState(user.success);
+
+  const aboutuser = async () => {
+    setLoading(true);
+    const auser = await fetch("https://notebookapi.onrender.com/user/details", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        id: user.token,
+      },
+    });
+     await auser.json();
+
+    // setUemail(uabout.email);
+    // setUid(uabout._id);
+    // setUname(uabout.name);
+    // setLoading(false);
+  };
+
+  const uname = user.uname;
+  const uemail = user.uemail;
+  const uid  = user.uid;
 
   const logout = async () => {
     setLoading(true);
     localStorage.clear();
     setLoading(false);
     // alert("Logout")
-    setDrop(false)
-    // window.location.reload(true);
-    navigate("/")
+    setDrop(false);
+    navigate("/");
+    window.location.reload(true);
   };
+  const getnotes = async () => {
+    // setLoading(true);
+    const notes = await fetch("https://notebookapi.onrender.com/user/getnotes", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        id: user.token,
+      },
+      withCredentials: true,
+    });
+
+    const unotes = await notes.json();
+
+    if (notes) {
+      setNotes(unotes);
+      setLoading(false);
+    } else {
+      setLoading(true);
+    }
+
+    console.log(unotes);
+  };
+
+
+
+
+
+
+
+const [edittitle,setEdittitle] = useState("")
+  const [editdiscription,setEditdiscription] = useState("")
+  const [editid,seteditid] = useState("")
+  const [noteupdate,setNoteupdate] = useState(false)
+
+  const editnote = (note) => {
+    // setAdd(true);
+
+
+
+setEdittitle(note.title)
+setEditdiscription(note.discription)
+seteditid(note._id)
+  }
+
+  
 
   return (
     <Notecontext.Provider
@@ -193,6 +215,7 @@ const Notestate = (props) => {
         setEmail,
         setPassword,
         verify,
+        editnote,
         auth,
         navigate,
         name,
@@ -216,7 +239,7 @@ const Notestate = (props) => {
         uid,
         uemail,
         aboutuser,
-        loading,
+        loading,edit,setEdit,edittitle,editdiscription,setEditdiscription,setEdittitle,editid,seteditid,full,setFull,noteupdate,setNoteupdate
       }}
     >
       {props.children}

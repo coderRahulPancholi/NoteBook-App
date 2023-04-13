@@ -4,12 +4,13 @@ import styled from 'styled-components'
 import Notecontext from '../Context/Notecontext'
 import { FcExport } from "react-icons/fc";
 import { FiMenu } from "react-icons/fi";
+import { MdAssignmentAdd } from "react-icons/md";
 import { Link } from 'react-router-dom';
 
 
 
 export default function Navbar() {
-    const {auth,drop,setDrop,navigate,logout}= useContext(Notecontext)
+    const {auth,drop,setDrop,navigate,logout,uname,loading,add ,setAdd}= useContext(Notecontext)
     
 
    
@@ -17,11 +18,16 @@ export default function Navbar() {
   
   return (
   <MainContainer >
-    <div className="chid df ac jsb ">
+    <div className="chid df ac jsa ">
       <div className="item df ac jc gap15 h100  ">
         <h2 onClick={()=>navigate("/")} style={{cursor:"pointer"}} > NoteBook</h2>
+        { auth && window.location.pathname ==="/"?
+        <button onClick={()=>setAdd(!add)} className='bt df ac jsa gap10'><MdAssignmentAdd/> <span>Add note </span> </button>:null
+        }
+        
        
       </div>
+     
 
       {auth?
 
@@ -30,7 +36,7 @@ export default function Navbar() {
       
         
         <div className='userlogo df ac jc' onClick={()=>navigate("/about")} >
-          {/* <span >{uname.slice(0,1)} </span> */}
+          <span >{loading?"": uname.slice(0,1).toUpperCase()} </span>
           
         
         </div>
@@ -41,13 +47,20 @@ export default function Navbar() {
 
 
           
-        <div className={`${drop?" droped ":" "} dropmenu dfc ac jss gap15`} >
-        
-         {/* <h4> Hello {uname.toUpperCase().slice(0,5)}</h4> */}
+        <div className={`${drop?" maindrop ":" "} maindropno df ac jc gap10 `} >
+          <div className='blankdiv' onClick={()=>setDrop(!drop)}>
+            
+
+          </div>
+          <div className={`${drop?" droped ":" "} dropmenu dfc ac jss gap15`}>
+          <h4> Hello {loading?"Your Name": uname.toUpperCase().slice(0,5)}</h4>
          <li><Link to="/" className={window.location.pathname ==="/"?"active":""}>Home</Link></li>
          <li><Link to="/about" className={window.location.pathname ==="/about"?"active":""}>About</Link></li>
          
          <button onClick={logout}><FcExport size={25}/>Logout</button>
+          </div>
+        
+        
 
         </div>
         
@@ -94,12 +107,11 @@ button{
 .dropmenu{
   /* display: none; */
   display: flex;
-  top: 75px;
-  right: 0%;
+
   width: 50%;
   height: calc(100vh - 75px);
   max-width: 300px;
-  position: fixed;
+  
   box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
 z-index: 99;
 padding: 10px;
@@ -122,6 +134,43 @@ padding: 10px;
   /* color: red; */
   padding: 5px;
   border-bottom: 0.5px solid black;
+}
+.maindropno{
+  position: fixed;
+  width: 100%;
+  height: calc(100vh - 75px);
+  top: 75px;
+  right: 0%;
+  transition: 1s;
+ transform: translateX(100%);
+
+ 
+
+
+ .blankdiv{
+ width: 100%;
+  height: 100%;
+  /* background: #1b70fa; */
+  opacity: 40%;
+ }
+}
+.maindrop{
+  
+  transition: 0.1s;
+  transform: translateX(0);
+}
+
+
+.bt{
+  padding: 7px;
+  background-color: #262ea1;
+  border-radius: 5px;
+  color: white;
+
+  &:hover{
+    background-color: blue;
+  }
+
 }
 
 `

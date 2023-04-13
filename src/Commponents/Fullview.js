@@ -6,33 +6,11 @@ import Notecontext from '../Context/Notecontext';
 export default function Addnote() {
   const {
    
-    title,setTitle,discription,setDiscription,addnote,setAdd,add,edit,setEdit,edittitle,editdiscription,setEditdiscription,setEdittitle,user,getnotes,editid,setNoteupdate
+  edittitle,editdiscription,full,setFull
   } = useContext(Notecontext);
 
 
-  const editnote= async(noteid)=>{
-    await fetch(`https://notebookapi.onrender.com/user/updatenote/${noteid}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        id: user.token,
-      },
-      withCredentials: true,
-      body: JSON.stringify({  title:edittitle, discription:editdiscription,date:new Date().toLocaleString() }),
-    });
-
-    setEdit(false)
-    setAdd(false)
-
-    setEditdiscription("")
-    setEdittitle("")
-  setNoteupdate(true)
-  setTimeout(() => {
-    setNoteupdate(false)
-  }, 5000);
-    getnotes()
-  } 
-
+ 
  
 
 
@@ -44,37 +22,43 @@ export default function Addnote() {
     <Wrapper className='df jc ac'>
       
 
-      <div className={`${add || edit?"adder":""} innercont  df as jc ` }> 
-      {edit?  
+      <div className={`${full?"adder":""} innercont  df as jc ` }> 
+      {full?  
       <div className='form dfc ac   gap20' >
           <h5>Edit Note</h5>
           <div className='inputs dfc gap20 ac w90'>
-            <input type="text"  placeholder='Title' value={edittitle} onChange={(e)=>setEdittitle(e.target.value)} />
-            <textarea type="text" placeholder='Discription' value={editdiscription} onChange={(e)=>setEditdiscription(e.target.value)} />
+            <input type="text"  placeholder='Title' value={edittitle}  />
+            <textarea type="text" placeholder='Discription' value={editdiscription}  />
           </div>
           <div className='buttons df ac jc gap20'>
 
-            <button onClick={()=>editnote(editid)} className='globalbtn'>Update</button>
-            <button onClick={()=>setEdit(!edit)} className='globalbtn'>Cancel</button>
+            
+            <button onClick={()=>setFull(false)} className='globalbtn'>Cancel</button>
           </div>
-        </div>: 
-        <div className='form dfc ac   gap20' >
-          <h5>Add Note</h5>
-          <div className='inputs dfc  ac w90'>
-            <input type="text"  placeholder='Title' value={title} onChange={(e)=>setTitle(e.target.value)}/>
-            <textarea type="text" placeholder='Discription' value={discription} onChange={(e)=>setDiscription(e.target.value)} />
-        
-          </div>
-          <div className='buttons df ac jc gap20'>
-
-            <button onClick={addnote} className='globalbtn'>Add</button>
-            <button onClick={()=>setAdd(!add)} className='globalbtn'>Cancel</button>
-          </div>
-        </div>}
+        </div>:null}
       </div>
 
-   </Wrapper>
+    
 
+      
+
+
+
+      
+   
+
+
+
+
+
+   </Wrapper>
+   
+
+   
+   
+   
+
+    
   )
 }
 
@@ -120,8 +104,8 @@ const Wrapper = styled.div`
 }
 
 .form{
-  width: 100%;
-  height: 100%;
+  width: 90%;
+  height: 90%;
   /* max-width: 500px; */
   padding: 15px;
   background-color: 
@@ -152,6 +136,7 @@ border-radius: 10px;
 
 
 
+
   }
   textarea{
     flex: 1;
@@ -161,6 +146,7 @@ border-radius: 10px;
     border-radius: 10px;
     width: 100%;
 padding: 10px;
+
    
    background-color: #d9d9d9;
     /* box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px; */
