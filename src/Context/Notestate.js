@@ -13,7 +13,7 @@ const Notestate = (props) => {
   const [loading, setLoading] = useState(false);
   const [drop, setDrop] = useState(false);
   const [edit, setEdit] = useState(false);
-  const [full, setFull] = useState(false);
+
   const [password, setPassword] = useState("");
  
   const [notes, setNotes] = useState([]);
@@ -23,8 +23,8 @@ const Notestate = (props) => {
   //add notes api
   const addnote = async (e) => {
     e.preventDefault()
-    setAdd(false);
-    // setLoading(true)
+    
+    setLoading(true)
     if (auth) {
       const notes = await fetch("https://notebookapi.onrender.com/user/addnote", {
         method: "POST",
@@ -43,6 +43,7 @@ const Notestate = (props) => {
       setTitle("");
       setDiscription("");
       getnotes();
+      setAdd(false);
       setTimeout(() => {
         setNoteadd(false);
       }, 5000);
@@ -162,7 +163,7 @@ const Notestate = (props) => {
     window.location.reload(true);
   };
   const getnotes = async () => {
-    // setLoading(true);
+    setLoading(true);
     const notes = await fetch("https://notebookapi.onrender.com/user/getnotes", {
       method: "GET",
       headers: {
@@ -178,6 +179,7 @@ const Notestate = (props) => {
       setNotes(unotes);
       setLoading(false);
     } else {
+      
       setLoading(true);
     }
 
@@ -239,7 +241,7 @@ seteditid(note._id)
         uid,
         uemail,
         aboutuser,
-        loading,edit,setEdit,edittitle,editdiscription,setEditdiscription,setEdittitle,editid,seteditid,full,setFull,noteupdate,setNoteupdate
+        loading,edit,setEdit,edittitle,editdiscription,setEditdiscription,setEdittitle,editid,seteditid,noteupdate,setNoteupdate,setLoading
       }}
     >
       {props.children}

@@ -36,7 +36,7 @@ export default function Navbar() {
       
         
         <div className='userlogo df ac jc' onClick={()=>navigate("/about")} >
-          <span >{loading?"": uname.slice(0,1).toUpperCase()} </span>
+          <span >{ uname.slice(0,1).toUpperCase()} </span>
           
         
         </div>
@@ -108,9 +108,9 @@ button{
   /* display: none; */
   display: flex;
 
-  width: 50%;
+  width: 100%;
   height: calc(100vh - 75px);
-  max-width: 300px;
+  max-width: 500px;
   
   box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
 z-index: 99;
@@ -150,8 +150,8 @@ padding: 10px;
  .blankdiv{
  width: 100%;
   height: 100%;
-  /* background: #1b70fa; */
-  opacity: 40%;
+  
+  /* opacity: 40%; */
  }
 }
 .maindrop{
