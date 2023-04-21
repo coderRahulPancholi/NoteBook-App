@@ -77,10 +77,10 @@ const Notestate = (props) => {
       setAuth(true);
       //  const allCookies = document.cookie;
       //  console.log(allCookies)
-      // navigate("/");
+      navigate("/home");
       // alert("Login succesfully")
 
-      window.location.reload(true);
+      // window.location.reload(true);
 
       // getnotes()
 
@@ -162,28 +162,37 @@ const Notestate = (props) => {
     navigate("/");
     window.location.reload(true);
   };
+
+
   const getnotes = async () => {
-    setLoading(true);
-    const notes = await fetch("https://notebookapi.onrender.com/user/getnotes", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        id: user.token,
-      },
-      withCredentials: true,
-    });
-
-    const unotes = await notes.json();
-
-    if (notes) {
-      setNotes(unotes);
-      setLoading(false);
-    } else {
-      
+    try{
       setLoading(true);
+      const notes = await fetch("https://notebookapi.onrender.com/user/getnotes", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          id: user.token,
+        },
+        withCredentials: true,
+      });
+  
+      const unotes = await notes.json();
+  
+      if (notes) {
+        setNotes(unotes);
+        setLoading(false);
+      } else {
+        setNotes(null)
+        setLoading(true);
+      }
+      console.log(unotes);
+    }catch{
+      // localStorage.clear()
+      // window.location.reload(true)
     }
+   
 
-    console.log(unotes);
+    
   };
 
 

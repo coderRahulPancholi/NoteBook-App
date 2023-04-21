@@ -20,8 +20,8 @@ export default function Navbar() {
   <MainContainer >
     <div className="chid df ac jsa ">
       <div className="item df ac jc gap15 h100  ">
-        <h2 onClick={()=>navigate("/")} style={{cursor:"pointer"}} > NoteBook</h2>
-        { auth && window.location.pathname ==="/"?
+        <h2 onClick={()=>navigate("/home")} style={{cursor:"pointer"}} > NoteBook</h2>
+        { auth && window.location.pathname ==="/home"?
         <button onClick={()=>setAdd(!add)} className='bt df ac jsa gap10'><MdAssignmentAdd/> <span>Add note </span> </button>:null
         }
         
@@ -54,7 +54,7 @@ export default function Navbar() {
           </div>
           <div className={`${drop?" droped ":" "} dropmenu dfc ac jss gap15`}>
           <h4> Hello {loading?"Your Name": uname.toUpperCase().slice(0,5)}</h4>
-         <li><Link to="/" className={window.location.pathname ==="/"?"active":""}>Home</Link></li>
+         <li><Link to="/home" className={window.location.pathname ==="/home"?"active":""}>Home</Link></li>
          <li><Link to="/about" className={window.location.pathname ==="/about"?"active":""}>About</Link></li>
          
          <button onClick={logout}><FcExport size={25}/>Logout</button>
@@ -65,7 +65,7 @@ export default function Navbar() {
         </div>
         
         
-      </div>:<>Login</>}
+      </div>:<button onClick={()=> navigate("/")}>Login</button>}
     </div>
 
 

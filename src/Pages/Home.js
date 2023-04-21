@@ -5,6 +5,7 @@ import Notecontext from "../Context/Notecontext";
 // import Navbar from "../Commponents/Navbar";
 import styled from "styled-components";
 import Addnote from "../Commponents/Addnote";
+import Singup from "../Pages/Singup";
 import Fullview from "../Commponents/Fullview";
 import { useEffect } from "react";
 import Notescard from "../Commponents/Notescard";
@@ -76,17 +77,14 @@ alert("all notes will be dlted")
 
   useEffect(() => {
     setDrop(false);
-    try{
+    
       
       if (auth) {
         getnotes();
   
         console.log("i fire once");
       }
-    }catch{
-      localStorage.clear()
-      window.location.reload(true)
-    }
+    
     
 
     // eslint-disable-next-line
@@ -112,7 +110,7 @@ alert("all notes will be dlted")
                 null
               }
             </div>
-{add ||edit ? <Addnote/>:
+{auth?add ||edit ? <Addnote/>:
             <div className="cscard dfc ac w100 ">
               <div className=" df ac jsb w100 ">
                 <div className="filter dfc  ">
@@ -144,7 +142,7 @@ alert("all notes will be dlted")
               </div>
              <div className="notes df wrap gap10 w100">
 
-              {notes.length !== 0 ? 
+              {notes.length !== 0? 
                 notes.filter((e)=> filtervalue === "Pending"?e.status ==="pending":filtervalue === "Completed"?e.status==="complete":e ).map((e) => {
                   return (
                     <Notescard
@@ -163,7 +161,7 @@ alert("all notes will be dlted")
                 <div className="nonotes">Add notes </div>
               }
               </div>
-            </div>  }
+            </div>:<Singup/>  }
             
           </>
         
