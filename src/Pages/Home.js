@@ -76,11 +76,18 @@ alert("all notes will be dlted")
 
   useEffect(() => {
     setDrop(false);
-    if (auth) {
-      getnotes();
-
-      console.log("i fire once");
+    try{
+      
+      if (auth) {
+        getnotes();
+  
+        console.log("i fire once");
+      }
+    }catch{
+      localStorage.clear()
+      window.location.reload(true)
     }
+    
 
     // eslint-disable-next-line
   }, []);
@@ -137,7 +144,7 @@ alert("all notes will be dlted")
               </div>
              <div className="notes df wrap gap10 w100">
 
-              {notes.length !== 0 ? (
+              {notes.length !== 0 ? 
                 notes.filter((e)=> filtervalue === "Pending"?e.status ==="pending":filtervalue === "Completed"?e.status==="complete":e ).map((e) => {
                   return (
                     <Notescard
@@ -152,7 +159,7 @@ alert("all notes will be dlted")
                     />
                   );
                 })
-              ) : 
+               : 
                 <div className="nonotes">Add notes </div>
               }
               </div>
