@@ -5,7 +5,7 @@ import Notecontext from "../Context/Notecontext";
 // import Navbar from "../Commponents/Navbar";
 import styled from "styled-components";
 import Addnote from "../Commponents/Addnote";
-import Singup from "../Pages/Singup";
+
 import Fullview from "../Commponents/Fullview";
 import { useEffect } from "react";
 import Notescard from "../Commponents/Notescard";
@@ -26,7 +26,7 @@ export default function Home() {
     user,
     edit,
     setDrop,
-    add, setLoading
+    add, setLoading,navigate
   } = useContext(Notecontext);
 
   const dltnote = async (id) => {
@@ -161,7 +161,7 @@ alert("all notes will be dlted")
                 <div className="nonotes">Add notes </div>
               }
               </div>
-            </div>:<Singup/>  }
+            </div>:<div className="w100 dfc ac jc"> <p>Please login to access this page </p> <button className="btn btn-primary" onClick={()=>navigate("/")}>Login</button> </div>  }
             
           </>
         

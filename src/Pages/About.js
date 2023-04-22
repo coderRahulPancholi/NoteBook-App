@@ -4,6 +4,7 @@ import { useContext } from 'react'
 import styled from 'styled-components'
 import Notecontext from '../Context/Notecontext'
 import { FcExport } from "react-icons/fc";
+import Navbar from '../Commponents/Navbar'
 
 export default function About() {
 
@@ -20,7 +21,9 @@ export default function About() {
         // eslint-disable-next-line
     },[])
   return (
+    <> <Navbar/>
     <Wrapper>
+     
         {!loading ?<div className='w100 h100 dfc ac jsa gap15'>
             <div className='userlogo df ac jc '><span>{auth?uname.slice(0,1):null}</span></div>
             <div className='info'>
@@ -36,7 +39,7 @@ export default function About() {
        
         <button onClick={logout}><FcExport size={25}/>Logout</button>
 
-    </Wrapper>
+    </Wrapper></>
   )
 }
 const Wrapper = styled.div`
