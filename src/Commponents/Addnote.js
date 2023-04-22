@@ -4,6 +4,7 @@ import Notecontext from "../Context/Notecontext";
 import {MdDoneAll ,MdOutlineCancel} from "react-icons/md"
 
 export default function Addnote() {
+  
   const {
     title,
     setTitle,
@@ -133,16 +134,11 @@ const Wrapper = styled.div`
     /* position: fixed;
  top: 0;
  z-index: 999; */
-
     width: 100vw;
     transform: translateY(-150%);
-
     max-width: 500px;
-
     /* min-height: 300px; */
-
     transition: 0.5s;
-
     overflow: hidden;
   }
   .adder {
@@ -150,7 +146,6 @@ const Wrapper = styled.div`
     width: 100vw;
     height: 90vh;
     padding: 10px;
-
     /* background-color: white; */
     transform: translateY(0px);
   }
@@ -161,14 +156,13 @@ const Wrapper = styled.div`
     /* max-width: 500px; */
     /* padding: 15px; */
     /* background-color: white; */
-
     /* box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset; */
     border-radius: 10px;
   }
 
   .inputs {
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
-      rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
     border-radius: 10px;
     background-color: #f2f2f2;
     height: 90%;

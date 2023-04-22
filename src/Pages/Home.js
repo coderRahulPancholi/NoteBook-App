@@ -110,7 +110,7 @@ alert("all notes will be dlted")
                 null
               }
             </div>
-{auth?add ||edit ? <Addnote/>:
+{auth? add ||edit ? <Addnote/>:
             <div className="cscard dfc ac w100 ">
               <div className=" df ac jsb w100 ">
                 <div className="filter dfc  ">
@@ -217,12 +217,7 @@ const Wrapper = styled.div`
     right: 0; */
 
   }
-  .notes{
-   
 
-   
-
-  }
 
   .nonotes {
     width: 100%;
